@@ -69,7 +69,7 @@ namespace TrashPickUp_Project.Controllers
                 var userId = this.User.FindFirstValue(ClaimTypes.NameIdentifier);
                 newEmployee.IdentityUserId = userId;
                 newEmployee.Name = collection["Name"].ToString();
-                _context1.Add(newEmployee);
+                _context1.Employees.Add(newEmployee);
                 _context1.SaveChanges();
 
                 return RedirectToAction(nameof(Index));
