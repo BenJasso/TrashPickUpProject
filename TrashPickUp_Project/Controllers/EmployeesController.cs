@@ -10,6 +10,7 @@ using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using TrashPickUp_Project.Models;
 using TrashPickUp_Project.Data;
 using Microsoft.EntityFrameworkCore;
+using System.Security.Claims;
 
 namespace TrashPickUp_Project.Controllers
 
@@ -64,6 +65,12 @@ namespace TrashPickUp_Project.Controllers
             try
             {
                 // TODO: Add insert logic here
+                Employee newEmployee = new Employee();
+                var userId = this.User.FindFirstValue(ClaimTypes.NameIdentifier);
+                newEmployee.IdentityUserId = userId;
+                newEmployee.Name = collection["Name"].ToString();
+                _context1.Add(newEmployee);
+                _context1.SaveChanges();
 
                 return RedirectToAction(nameof(Index));
             }
