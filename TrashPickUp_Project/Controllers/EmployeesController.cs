@@ -5,16 +5,43 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+using TrashPickUp_Project.Models;
+using TrashPickUp_Project.Data;
+using Microsoft.EntityFrameworkCore;
 
 namespace TrashPickUp_Project.Controllers
+
 {
+    
     [Authorize(Roles = "Employee")]
     public class EmployeesController : Controller
     {
+        private ApplicationDbContext _context1;
+        public EmployeesController(ApplicationDbContext context1)
+        {
+            _context1 = context1;
+        }
+        public ActionResult ScheduledPickUps()
+        {
+            return View();
+        }
+
         // GET: Employees
         public ActionResult Index()
         {
-            return View();
+            var employee = _context1.Users.Where(u => u.Email == User.Identity.Name).SingleOrDefault();
+            var id = employee.Id;
+            if (_context1.Employees.Where(e => e.IdentityUserId == id).SingleOrDefault() == null)
+            {
+                return View("Create"); 
+            }
+            else
+            {
+                return View();
+            }
+           
         }
 
         // GET: Employees/Details/5

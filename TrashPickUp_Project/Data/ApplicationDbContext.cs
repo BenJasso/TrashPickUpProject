@@ -4,6 +4,7 @@ using System.Text;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
+using TrashPickUp_Project.Models;
 
 namespace TrashPickUp_Project.Data
 {
@@ -31,5 +32,8 @@ namespace TrashPickUp_Project.Data
              }
             );
         }
+
+        public DbSet<Employee> Employees { get; set; }
+        public DbSet<Customer> Customers { get; set; }
     }
 }
