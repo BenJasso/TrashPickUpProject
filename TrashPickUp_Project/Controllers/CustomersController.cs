@@ -34,9 +34,26 @@ namespace TrashPickUp_Project.Controllers
                 return View();
             }
         }
+        public ActionResult MyScheduledPickup()
+        {
+            CustomerSchedPickUp item = _context1.CustomerSchedPickUps.Where(c => c.IdentityUserId == this.User.FindFirstValue(ClaimTypes.NameIdentifier)).SingleOrDefault();
+            if(item == null)
+            {
+                return View("CreateScheduledPickUp");
+            }
+            else
+            {
+                return View(item);
+            }
+          
+        }
         public ActionResult CreateScheduledPickUp()
         {
-            return View();
+
+           
+                return View();
+            
+            
         }
 
         // GET: Customer/Details/5
@@ -79,7 +96,10 @@ namespace TrashPickUp_Project.Controllers
             try
             {
                 // TODO: Add insert logic here
-
+           
+                var userId = this.User.FindFirstValue(ClaimTypes.NameIdentifier);
+            
+                customerSchedPickUp.IdentityUserId = userId;
                 _context1.CustomerSchedPickUps.Add(customerSchedPickUp);
                 _context1.SaveChanges();
                 return RedirectToAction(nameof(Index));
@@ -99,11 +119,16 @@ namespace TrashPickUp_Project.Controllers
         // POST: Customer/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit(int id, IFormCollection collection)
+        public ActionResult Edit(CustomerSchedPickUp item)
         {
             try
             {
-                // TODO: Add update logic here
+                var userId = this.User.FindFirstValue(ClaimTypes.NameIdentifier);
+               var temp = _context1.CustomerSchedPickUps.Where(c => c.IdentityUserId == userId).SingleOrDefault();
+                temp.Address = item.Address;
+                temp.DayOfWeek = item.DayOfWeek;
+                temp.OneTimePickUp = item.OneTimePickUp;
+                _context1.SaveChanges();
 
                 return RedirectToAction(nameof(Index));
             }
