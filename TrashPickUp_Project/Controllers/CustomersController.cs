@@ -34,6 +34,10 @@ namespace TrashPickUp_Project.Controllers
                 return View();
             }
         }
+        public ActionResult CreateScheduledPickUp()
+        {
+            return View();
+        }
 
         // GET: Customer/Details/5
         public ActionResult Details(int id)
@@ -60,6 +64,23 @@ namespace TrashPickUp_Project.Controllers
                 newCustomer.IdentityUserId = userId;
                 newCustomer.Name = collection["Name"].ToString();
                 _context1.Customers.Add(newCustomer);
+                _context1.SaveChanges();
+                return RedirectToAction(nameof(Index));
+            }
+            catch
+            {
+                return View();
+            }
+        }
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult CreateScheduledPickUp(CustomerSchedPickUp customerSchedPickUp)
+        {
+            try
+            {
+                // TODO: Add insert logic here
+
+                _context1.CustomerSchedPickUps.Add(customerSchedPickUp);
                 _context1.SaveChanges();
                 return RedirectToAction(nameof(Index));
             }

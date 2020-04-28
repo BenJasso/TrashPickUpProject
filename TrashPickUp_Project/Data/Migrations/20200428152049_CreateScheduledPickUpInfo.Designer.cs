@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using TrashPickUp_Project.Data;
 
 namespace TrashPickUp_Project.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20200428152049_CreateScheduledPickUpInfo")]
+    partial class CreateScheduledPickUpInfo
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -48,15 +50,15 @@ namespace TrashPickUp_Project.Data.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "c9cac065-7cd9-440c-b951-d5f8f1e81568",
-                            ConcurrencyStamp = "7cc59e29-970b-47c4-ac66-55840320bac3",
+                            Id = "7649024d-0a93-4e12-bacf-14a8b8778e67",
+                            ConcurrencyStamp = "8d956835-a9b9-422a-93db-34436cd129de",
                             Name = "Employee",
                             NormalizedName = "EMPLOYEE"
                         },
                         new
                         {
-                            Id = "1ebe18ed-d9eb-4ee4-a368-7f7e40997296",
-                            ConcurrencyStamp = "cbb259e8-d64a-4fa1-9431-8788e5a2399b",
+                            Id = "84ab5c75-ef44-42f4-8b50-65860734c4f6",
+                            ConcurrencyStamp = "641bdb8c-9864-4c16-8955-42ecb4c54a8c",
                             Name = "Customer",
                             NormalizedName = "CUSTOMER"
                         });
@@ -251,35 +253,6 @@ namespace TrashPickUp_Project.Data.Migrations
                     b.ToTable("Customers");
                 });
 
-            modelBuilder.Entity("TrashPickUp_Project.Models.CustomerSchedPickUp", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<string>("Address")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("DayOfWeek")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("IdentityUserId")
-                        .HasColumnType("nvarchar(450)");
-
-                    b.Property<DateTime>("OneTimePickUp")
-                        .HasColumnType("datetime2");
-
-                    b.Property<int>("ZipCode")
-                        .HasColumnType("int");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("IdentityUserId");
-
-                    b.ToTable("CustomerSchedPickUps");
-                });
-
             modelBuilder.Entity("TrashPickUp_Project.Models.Employee", b =>
                 {
                     b.Property<int>("Id")
@@ -352,13 +325,6 @@ namespace TrashPickUp_Project.Data.Migrations
                 });
 
             modelBuilder.Entity("TrashPickUp_Project.Models.Customer", b =>
-                {
-                    b.HasOne("Microsoft.AspNetCore.Identity.IdentityUser", "IdentityUser")
-                        .WithMany()
-                        .HasForeignKey("IdentityUserId");
-                });
-
-            modelBuilder.Entity("TrashPickUp_Project.Models.CustomerSchedPickUp", b =>
                 {
                     b.HasOne("Microsoft.AspNetCore.Identity.IdentityUser", "IdentityUser")
                         .WithMany()
