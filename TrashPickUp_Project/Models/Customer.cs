@@ -13,8 +13,21 @@ namespace TrashPickUp_Project.Models
 
         [Key]
         public int Id { get; set; }
+        [Required]
+      
         public string Name { get; set; }
+        [Required]
+        public string Address { get; set; }
+        [Required]
+        public string City { get; set; }
+       
+        [Required]
+        public double ZipCode { get; set; }
+        [Required]
+
         public double Balance { get; set; }
+        
+        
 
         [ForeignKey("IdentityUser")]
         public string IdentityUserId { get; set; }

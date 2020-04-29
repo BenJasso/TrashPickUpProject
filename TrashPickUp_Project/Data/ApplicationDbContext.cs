@@ -36,5 +36,6 @@ namespace TrashPickUp_Project.Data
         public DbSet<Employee> Employees { get; set; }
         public DbSet<Customer> Customers { get; set; }
         public DbSet<CustomerSchedPickUp> CustomerSchedPickUps { get; set; }
+        public DbSet<ConfirmedPU> ConfirmedPUs { get; set; }
     }
 }

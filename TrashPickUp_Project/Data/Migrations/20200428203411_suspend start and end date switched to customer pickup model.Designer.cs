@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using TrashPickUp_Project.Data;
 
 namespace TrashPickUp_Project.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20200428203411_suspend start and end date switched to customer pickup model")]
+    partial class suspendstartandenddateswitchedtocustomerpickupmodel
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -48,15 +50,15 @@ namespace TrashPickUp_Project.Data.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "9cdab3e9-b27c-495e-9c53-c4fa4ac014ec",
-                            ConcurrencyStamp = "1da6a921-12ba-4027-9be3-6b9fc3bc1631",
+                            Id = "fab86ab6-a48b-4f45-8b04-461c57072fac",
+                            ConcurrencyStamp = "3e19f098-e00c-4bfc-9055-751148fc7a37",
                             Name = "Employee",
                             NormalizedName = "EMPLOYEE"
                         },
                         new
                         {
-                            Id = "9e0b8c8c-e705-43bf-9bda-b05c04872da8",
-                            ConcurrencyStamp = "90fd0366-7c95-4699-bcc4-c72e52515a52",
+                            Id = "d2e06644-236a-49b8-93c5-58ae4e836993",
+                            ConcurrencyStamp = "ef06f920-1d10-4b3d-978b-afcda5bc7ee9",
                             Name = "Customer",
                             NormalizedName = "CUSTOMER"
                         });
@@ -332,23 +334,11 @@ namespace TrashPickUp_Project.Data.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<string>("Address")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("City")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
                     b.Property<string>("IdentityUserId")
                         .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("Name")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
-
-                    b.Property<double>("ZipCode")
-                        .HasColumnType("float");
 
                     b.HasKey("Id");
 

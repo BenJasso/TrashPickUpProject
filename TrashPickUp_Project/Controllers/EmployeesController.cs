@@ -20,10 +20,19 @@ namespace TrashPickUp_Project.Controllers
     public class EmployeesController : Controller
     {
         private ApplicationDbContext _context1;
+        private IEnumerable<CustomerSchedPickUp> PUs;
+
         public EmployeesController(ApplicationDbContext context1)
         {
             _context1 = context1;
+           
+            
+
+            
+
+          
         }
+      
         public ActionResult ScheduledPickUps()
         {
             return View();
@@ -32,15 +41,24 @@ namespace TrashPickUp_Project.Controllers
         // GET: Employees
         public ActionResult Index()
         {
-            var employee = _context1.Users.Where(u => u.Email == User.Identity.Name).SingleOrDefault();
-            var id = employee.Id;
+            
+            
+            
+           
+            var id = this.User.FindFirstValue(ClaimTypes.NameIdentifier);
+          
             if (_context1.Employees.Where(e => e.IdentityUserId == id).SingleOrDefault() == null)
             {
                 return View("Create"); 
             }
             else
             {
-                return View();
+                
+                var employee = _context1.Employees.Where(e => e.IdentityUserId == id).SingleOrDefault();
+                var zip = employee.ZipCode;
+                var Dow = DateTime.Today.DayOfWeek.ToString();
+                PUs = _context1.CustomerSchedPickUps.Where(e => e.ZipCode == zip && e.DayOfWeek == Dow);
+                return View(PUs);
             }
            
         }
@@ -60,7 +78,7 @@ namespace TrashPickUp_Project.Controllers
         // POST: Employees/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create(IFormCollection collection)
+        public ActionResult Create(Employee item)
         {
             try
             {
@@ -68,7 +86,10 @@ namespace TrashPickUp_Project.Controllers
                 Employee newEmployee = new Employee();
                 var userId = this.User.FindFirstValue(ClaimTypes.NameIdentifier);
                 newEmployee.IdentityUserId = userId;
-                newEmployee.Name = collection["Name"].ToString();
+                newEmployee.Name = item.Name;
+                newEmployee.Address = item.Address;
+                newEmployee.City = item.City;
+                newEmployee.ZipCode = item.ZipCode;
                 _context1.Employees.Add(newEmployee);
                 _context1.SaveChanges();
 

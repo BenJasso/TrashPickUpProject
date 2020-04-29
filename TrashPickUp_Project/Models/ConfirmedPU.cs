@@ -8,20 +8,12 @@ using System.Threading.Tasks;
 
 namespace TrashPickUp_Project.Models
 {
-    public class Employee
+    public class ConfirmedPU
     {
         [Key]
         public int Id { get; set; }
-        [Required]
-        public string Name { get; set; }
-        [Required]
-        public string Address { get; set; }
-        [Required]
-        public string City { get; set; }
-
-        [Required]
-        public double ZipCode { get; set; }
-
+        public DateTime Date { get; set; }
+        
         [ForeignKey("IdentityUser")]
         public string IdentityUserId { get; set; }
         public IdentityUser IdentityUser { get; set; }

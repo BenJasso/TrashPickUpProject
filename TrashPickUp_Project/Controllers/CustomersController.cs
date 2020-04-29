@@ -71,16 +71,16 @@ namespace TrashPickUp_Project.Controllers
         // POST: Customer/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create(IFormCollection collection)
+        public ActionResult Create(Customer item)
         {
             try
             {
+
                 // TODO: Add insert logic here
                 Customer newCustomer = new Customer();
                 var userId = this.User.FindFirstValue(ClaimTypes.NameIdentifier);
-                newCustomer.IdentityUserId = userId;
-                newCustomer.Name = collection["Name"].ToString();
-                _context1.Customers.Add(newCustomer);
+                item.IdentityUserId = userId;
+                _context1.Customers.Add(item);
                 _context1.SaveChanges();
                 return RedirectToAction(nameof(Index));
             }
@@ -96,10 +96,13 @@ namespace TrashPickUp_Project.Controllers
             try
             {
                 // TODO: Add insert logic here
-           
                 var userId = this.User.FindFirstValue(ClaimTypes.NameIdentifier);
+                var customer = _context1.Customers.Where(c => c.IdentityUserId == userId).SingleOrDefault();
             
                 customerSchedPickUp.IdentityUserId = userId;
+                customerSchedPickUp.Address = customer.Address;
+                customerSchedPickUp.City = customer.City;
+                customerSchedPickUp.ZipCode = customer.ZipCode;
                 _context1.CustomerSchedPickUps.Add(customerSchedPickUp);
                 _context1.SaveChanges();
                 return RedirectToAction(nameof(Index));
@@ -127,7 +130,7 @@ namespace TrashPickUp_Project.Controllers
                var temp = _context1.CustomerSchedPickUps.Where(c => c.IdentityUserId == userId).SingleOrDefault();
                 temp.Address = item.Address;
                 temp.DayOfWeek = item.DayOfWeek;
-                temp.OneTimePickUp = item.OneTimePickUp;
+            
                 _context1.SaveChanges();
 
                 return RedirectToAction(nameof(Index));
