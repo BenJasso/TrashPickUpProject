@@ -20,7 +20,8 @@ namespace TrashPickUp_Project.Controllers
     public class EmployeesController : Controller
     {
         private ApplicationDbContext _context1;
-        private IEnumerable<CustomerSchedPickUp> PUs;
+        public IEnumerable<CustomerSchedPickUp> PUs;
+
 
         public EmployeesController(ApplicationDbContext context1)
         {
@@ -32,7 +33,84 @@ namespace TrashPickUp_Project.Controllers
 
           
         }
-      
+        public void Confirm(string item)
+        {
+            Customer customer = _context1.Customers.Where(c => c.IdentityUserId == item).SingleOrDefault();
+            customer.Balance += 30;
+        }
+        
+        public ActionResult MondayPickUps()
+        {
+          
+            var id = this.User.FindFirstValue(ClaimTypes.NameIdentifier);
+            var employee = _context1.Employees.Where(e => e.IdentityUserId == id).SingleOrDefault();
+            var zip = employee.ZipCode;
+            var Dow = DayOfWeek.Monday.ToString();
+            PUs = _context1.CustomerSchedPickUps.Where(e => e.ZipCode == zip && e.DayOfWeek == Dow);
+            return View(PUs);
+
+        }
+        public ActionResult TuesdayPickUps()
+        {
+           
+            var id = this.User.FindFirstValue(ClaimTypes.NameIdentifier);
+            var employee = _context1.Employees.Where(e => e.IdentityUserId == id).SingleOrDefault();
+            var zip = employee.ZipCode;
+            var Dow = DayOfWeek.Tuesday.ToString();
+            PUs = _context1.CustomerSchedPickUps.Where(e => e.ZipCode == zip && e.DayOfWeek == Dow);
+            return View(PUs);
+        }
+        public ActionResult WednesdayPickUps()
+        {
+           
+            var id = this.User.FindFirstValue(ClaimTypes.NameIdentifier);
+            var employee = _context1.Employees.Where(e => e.IdentityUserId == id).SingleOrDefault();
+            var zip = employee.ZipCode;
+            var Dow = DayOfWeek.Wednesday.ToString();
+            PUs = _context1.CustomerSchedPickUps.Where(e => e.ZipCode == zip && e.DayOfWeek == Dow);
+            return View(PUs);
+        }
+        public ActionResult ThursdayPickUps()
+        {
+            
+            var id = this.User.FindFirstValue(ClaimTypes.NameIdentifier);
+            var employee = _context1.Employees.Where(e => e.IdentityUserId == id).SingleOrDefault();
+            var zip = employee.ZipCode;
+            var Dow = DayOfWeek.Thursday.ToString();
+            PUs = _context1.CustomerSchedPickUps.Where(e => e.ZipCode == zip && e.DayOfWeek == Dow) ;
+            return View(PUs);
+        }
+        public ActionResult FridayPickUps()
+        {
+            
+            var id = this.User.FindFirstValue(ClaimTypes.NameIdentifier);
+            var employee = _context1.Employees.Where(e => e.IdentityUserId == id).SingleOrDefault();
+            var zip = employee.ZipCode;
+            var Dow = DayOfWeek.Friday.ToString();
+            PUs = _context1.CustomerSchedPickUps.Where(e => e.ZipCode == zip && e.DayOfWeek == Dow);
+            return View(PUs);
+        }
+        public ActionResult SaturdayPickUps()
+        {
+            
+            var id = this.User.FindFirstValue(ClaimTypes.NameIdentifier);
+            var employee = _context1.Employees.Where(e => e.IdentityUserId == id).SingleOrDefault();
+            var zip = employee.ZipCode;
+            var Dow = DayOfWeek.Saturday.ToString();
+            PUs = _context1.CustomerSchedPickUps.Where(e => e.ZipCode == zip && e.DayOfWeek == Dow);
+            return View(PUs);
+        }
+        public ActionResult SundayPickUps()
+        {
+            
+            var id = this.User.FindFirstValue(ClaimTypes.NameIdentifier);
+            var employee = _context1.Employees.Where(e => e.IdentityUserId == id).SingleOrDefault();
+            var zip = employee.ZipCode;
+            var Dow = DayOfWeek.Sunday.ToString();
+            PUs = _context1.CustomerSchedPickUps.Where(e => e.ZipCode == zip && e.DayOfWeek == Dow);
+            return View(PUs);
+        }
+
         public ActionResult ScheduledPickUps()
         {
             return View();
@@ -41,10 +119,11 @@ namespace TrashPickUp_Project.Controllers
         // GET: Employees
         public ActionResult Index()
         {
+
+
+
+
             
-            
-            
-           
             var id = this.User.FindFirstValue(ClaimTypes.NameIdentifier);
           
             if (_context1.Employees.Where(e => e.IdentityUserId == id).SingleOrDefault() == null)

@@ -47,6 +47,12 @@ namespace TrashPickUp_Project.Controllers
             }
           
         }
+        public ActionResult Balance(Customer customer)
+        {
+            var userId = this.User.FindFirstValue(ClaimTypes.NameIdentifier);
+            customer = _context1.Customers.Where(c => c.IdentityUserId == userId).SingleOrDefault();
+            return View(customer);
+        }
         public ActionResult CreateScheduledPickUp()
         {
 

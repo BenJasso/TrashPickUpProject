@@ -1,16 +1,10 @@
 ﻿@model IEnumerable<TrashPickUp_Project.Models.CustomerSchedPickUp>
-
 @{
-
-    
-    ViewData["Title"] = "Index";
+    ViewData["Title"] = "MondayPickUps";
     Layout = "~/Views/Shared/_EmployeeLayout.cshtml";
-
-
 }
 
-<h1>Today's Pickups</h1>
-
+<h1>MondayPickUps</h1>
 
 <table class="table table-bordered  table-hover">
     <tr>
@@ -19,8 +13,7 @@
         <th>City </th>
         <th>Zip Code</th>
         <th>Day Of Week</th>
-        <th></th>
-        
+
     </tr>
     @foreach (var d in Model)
     {
@@ -30,11 +23,9 @@
             <td>@d.City</td>
             <td>@d.ZipCode</td>
             <td>@d.DayOfWeek</td>
-            <td><button type="button">Confirm</button> </td>
-           
+
 
         </tr>
 
     }
 </table>
-
