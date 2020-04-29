@@ -21,17 +21,20 @@ namespace TrashPickUp_Project.Controllers
             _context1 = context1;
         }
         // GET: Customer
-        public ActionResult Index()
+        public ActionResult Index(Customer customer1)
         {
+
             var customer = _context1.Users.Where(u => u.Email == User.Identity.Name).SingleOrDefault();
+            
             var id = customer.Id;
+            customer1 = _context1.Customers.Where(c => c.IdentityUserId == id).SingleOrDefault();
             if (_context1.Customers.Where(e => e.IdentityUserId == id).SingleOrDefault() == null)
             {
                 return View("Create");
             }
             else
             {
-                return View();
+                return View(customer1);
             }
         }
         public ActionResult MyScheduledPickup()

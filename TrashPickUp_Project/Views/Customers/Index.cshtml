@@ -1,8 +1,10 @@
-﻿
+﻿@model TrashPickUp_Project.Models.Customer
 @{
+
+
     ViewData["Title"] = "Index";
     Layout = "~/Views/Shared/_CustomerLayout.cshtml";
 }
 
-<h1>Welcome!</h1>
+<h1>Welcome @Html.DisplayFor(model => model.Name)!</h1>
 
