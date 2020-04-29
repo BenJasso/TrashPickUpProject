@@ -33,6 +33,11 @@ namespace TrashPickUp_Project.Controllers
 
           
         }
+        public ActionResult CustomerProfile(string item)
+        {
+            Customer customer = _context1.Customers.Where(c => c.IdentityUserId == item).SingleOrDefault();
+            return View(customer);
+        }
         public ActionResult Confirm(string item)
         {
             Customer customer = _context1.Customers.Where(c => c.IdentityUserId == item).SingleOrDefault();
