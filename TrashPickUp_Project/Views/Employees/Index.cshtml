@@ -30,7 +30,16 @@
             <td>@d.City</td>
             <td>@d.ZipCode</td>
             <td>@d.DayOfWeek</td>
-            <td><button type="button">Confirm</button> </td>
+            <td>
+                @Html.ActionLink(
+                 "Confirm",                                                  // linkText
+                 "Confirm",                                    // actionName
+                 "Employees",                                                   // controllerName
+                    new
+                         {item = d.IdentityUserId },
+                    null                                                      // htmlAttributes
+)
+            </td>
            
 
         </tr>

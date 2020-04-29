@@ -33,10 +33,12 @@ namespace TrashPickUp_Project.Controllers
 
           
         }
-        public void Confirm(string item)
+        public ActionResult Confirm(string item)
         {
             Customer customer = _context1.Customers.Where(c => c.IdentityUserId == item).SingleOrDefault();
             customer.Balance += 30;
+            _context1.SaveChanges();
+            return RedirectToAction("Index");
         }
         
         public ActionResult MondayPickUps()
