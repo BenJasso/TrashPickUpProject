@@ -17,7 +17,15 @@
     @foreach (var d in Model)
     {
         <tr>
-            <td><a href="#">@d.IdentityUserId</a></td>
+            <td>
+                @Html.ActionLink(
+                                 d.IdentityUserId,                                                  // linkText
+                                 "CustomerProfile",                                    // actionName
+                                 "Employees",                                                   // controllerName
+                                    new
+                                         { item = d.IdentityUserId },
+                                    null)
+                    </td>
             <td>@d.Address</td>
             <td>@d.City</td>
             <td>@d.ZipCode</td>
