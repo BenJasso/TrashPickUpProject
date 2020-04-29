@@ -139,6 +139,8 @@ namespace TrashPickUp_Project.Controllers
                var temp = _context1.CustomerSchedPickUps.Where(c => c.IdentityUserId == userId).SingleOrDefault();
                 temp.Address = item.Address;
                 temp.DayOfWeek = item.DayOfWeek;
+                temp.SuspendedStartDate = item.SuspendedStartDate;
+                temp.SuspendedEndDate = item.SuspendedEndDate;
             
                 _context1.SaveChanges();
 
